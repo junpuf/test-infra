@@ -34,9 +34,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--channel",
         help="Channel to look in",
-        choices=["nightly", "test"],
         type=str,
-        default=os.getenv("CHANNEL", "nightly"),
+        default=os.getenv("CHANNEL", "pytorch-nightly"),
     )
     parser.add_argument(
         "--platform",
@@ -93,7 +92,7 @@ def main():
         # TODO: Eventually it'd be nice to not have to rely on conda being installed
         output = subprocess.check_output(
             shlex.split(
-                f"conda search --json 'pytorch[channel=pytorch-{options.channel}]'"
+                f"conda search --json pytorch --override-channels -c {options.channel}"
             ),
             stderr=subprocess.STDOUT,
         )
