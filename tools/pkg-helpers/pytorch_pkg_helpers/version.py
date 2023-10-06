@@ -112,5 +112,5 @@ def get_version_variables(
     elif channel == "test":
         output_version = version.get_release_version()
     else:
-        output_version = self.base_build_version
+        output_version = base_build_version
     return [f"export BUILD_VERSION='{output_version}'"]
