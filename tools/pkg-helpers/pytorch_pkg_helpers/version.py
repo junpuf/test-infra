@@ -107,7 +107,10 @@ def get_version_variables(
         no_build_suffix=(platform == "darwin" or platform == "linux-aarch64" or package_type == "conda"),
         base_build_version=base_build_version,
     )
-    output_version = version.get_nightly_version()
-    if channel == "test":
+    if channel == "nightly":
+        output_version = version.get_nightly_version()
+    elif channel == "test":
         output_version = version.get_release_version()
+    else:
+        output_version = self.base_build_version
     return [f"export BUILD_VERSION='{output_version}'"]
